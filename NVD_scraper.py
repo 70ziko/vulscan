@@ -1,5 +1,7 @@
 import requests
 import subprocess
+import os
+import json
 from bs4 import BeautifulSoup
 
 def get_installed_software():
@@ -36,10 +38,35 @@ def search_NVD(installed_software):
     else:
         print("Nie znaleziono podatności dla programu " + software)
 
+def vuldb_search(installed_software):
+    # api key zaciągnięty z zmiennej środowiskowej
+    api_key = os.environ.get('VULDB_API_KEY')
+    if not api_key:
+        raise ValueError("API key not found in environment variables")
+
+    vulnerabilities = {}
+    for package in installed_software:
+        name = package[0]
+        version = package[1]
+        headers = {'api-key': api_key}
+        url = f'https://vuldb.com/?api&package={name}&version={version}'
+        response = json.loads(requests.get(url, headers=headers).text)
+        if 'vulnerabilities' in response:
+            vulnerabilities[name] = response['vulnerabilities']
+
+    # Print any vulnerabilities found
+    if vulnerabilities:
+        print('Vulnerabilities found:')
+        for package, vulns in vulnerabilities.items():
+            print(f'{package}:')
+            for vuln in vulns:
+                print(f'    {vuln}')
+    else:
+        print('No vulnerabilities found.')
 
 def main():
     installed_software = get_installed_software()
-    search_NVD(installed_software)
+    vuldb_search(installed_software[:10])
 
 if __name__ == "__main__":
     main()
