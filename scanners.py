@@ -2,9 +2,14 @@ import requests
 import subprocess
 import os
 import json
-import csv
+# import csv
 import re
+from colorama import init as colorama_init
+from colorama import Fore
+from colorama import Style
 from bs4 import BeautifulSoup
+
+colorama_init()
 
 def get_installed_software():   # Funkcja zwracająca zainstalowane paczki oraz ich wersje
     installed_software = []
@@ -20,7 +25,7 @@ def get_installed_software():   # Funkcja zwracająca zainstalowane paczki oraz 
 
     return installed_software
 
-def search_NVD(installed_software): # Funkcja porównująca zainstalowane oprogramowanie ze stroną NVD
+def search_NVD(installed_software, v=False): # Funkcja porównująca zainstalowane oprogramowanie ze stroną NVD
     packages = [sublist[0] for sublist in installed_software]
     versions = [sublist[1] for sublist in installed_software]
 
@@ -59,9 +64,10 @@ def search_NVD(installed_software): # Funkcja porównująca zainstalowane oprogr
 
         # Wypisz wymaluj
         if vulnerabilities:
-            print("Podatności dla programu " + software + ":")
+            print(f"{Fore.CYAN}Podatności dla programu {Fore.MAGENTA}{software}{Fore.BLUE}:{Style.RESET_ALL}")
             for vulnerability in vulnerabilities:
-                print(vulnerability['cve'])
+                print(f"{Fore.RED}{vulnerability['cve']}{Style.RESET_ALL}")
+                if v: print(vulnerability['summary'])
         else:
             print("Nie znaleziono podatności dla programu " + software)
 
@@ -93,12 +99,6 @@ def vuldb_search(installed_software):
 
 def csv_search(installed_software):
     pass
-#     # Read the vulnerability database from CSV
-#     vulnerabilities = {}
-#     with open('allitems.csv', newline='') as csvfile:
-#         vuln_reader = csv.DictReader(csvfile)
-#         for row in vuln_reader:
-#             pass
 
 def main():
     installed_software = get_installed_software()
