@@ -4,11 +4,12 @@ import scanners
 
 # obsługa programu poprzez argumenty przekazywane w konsoli
 parser = argparse.ArgumentParser(description='Program porównujący zainstalowane oprogramowanie z bazą danych podatności \n')
-parser.add_argument('--NVD', help='Przeszukaj stronę National Vulnerability Database od NIST', action='store_true')
-parser.add_argument('-d','--csv', type=str , help='Przeszukaj lokalną bazę danych w formacie csv, możliwe określenie ścieżki, domyślnie "./allitems.csv"', default="allitems.csv")
-parser.add_argument('--vuldb', help='Skorzystaj z VULDB API, aby znaleźć podatności', action='store_true')
-parser.add_argument('--list', help='Po prostu wylistuj zainstalowane oprgoramowanie', action='store_true')
 parser.add_argument('-v','--verbose', help='Zawrzyj opisy podatności w wyniku', action='store_true')
+parser.add_argument('-d','--csv', type=str , help='!In development! Przeszukaj lokalną bazę danych w formacie csv, możliwe określenie ścieżki, domyślnie "./allitems.csv"', default="allitems.csv")
+parser.add_argument('--NVD', help='Przeszukaj stronę National Vulnerability Database od NIST', action='store_true')
+parser.add_argument('--vuldb', help='!In development! Skorzystaj z VULDB API, aby znaleźć podatności', action='store_true')
+parser.add_argument('--list', help='Po prostu wylistuj zainstalowane oprgoramowanie', action='store_true')
+
 
 
 args=parser.parse_args()

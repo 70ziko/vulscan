@@ -64,9 +64,9 @@ def search_NVD(installed_software, v=False): # Funkcja porównująca zainstalowa
 
         # Wypisz wymaluj
         if vulnerabilities:
-            print(f"{Fore.CYAN}Podatności dla programu {Fore.MAGENTA}{software}{Fore.BLUE}:{Style.RESET_ALL}")
+            print(f"{Fore.CYAN}Podatności dla programu {Fore.LIGHTMAGENTA_EX}{software}{Fore.BLUE}:{Style.RESET_ALL}")
             for vulnerability in vulnerabilities:
-                print(f"{Fore.RED}{vulnerability['cve']}{Style.RESET_ALL}")
+                print(f"{Fore.LIGHTRED_EX}{vulnerability['cve']}{Style.RESET_ALL}")
                 if v: print(vulnerability['summary'])
         else:
             print("Nie znaleziono podatności dla programu " + software)
@@ -100,9 +100,9 @@ def vuldb_search(installed_software):
 def csv_search(installed_software):
     pass
 
-def main():
-    installed_software = get_installed_software()
-    search_NVD(installed_software)
+# def main():
+#     installed_software = get_installed_software()
+#     search_NVD(installed_software)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
