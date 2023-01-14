@@ -1,3 +1,14 @@
+# Debug files
+a_NVD.html
+accountsservice_NVD.html
+response.html
+
+# CVE database
+allitems.csv
+
+# vscode
+.vscode/launch.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
