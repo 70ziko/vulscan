@@ -2,6 +2,7 @@ import requests
 import subprocess
 import os
 import json
+import platform
 # import csv
 import re
 from colorama import init as colorama_init
@@ -13,8 +14,8 @@ colorama_init()
 
 def get_installed_software():   # Funkcja zwracająca zainstalowane paczki oraz ich wersje
     installed_software = []
+    
     output = subprocess.run(['dpkg', '-l'], stdout=subprocess.PIPE)
-
     output_str = output.stdout.decode('utf-8')
     lines = output_str.split('\n')
 
