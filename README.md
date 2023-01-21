@@ -1,4 +1,4 @@
-# vulscan - Vulnerablity Scanner for the
+# vulscan - Vulnerablity Scanner
  This program compares installed software with a vulnerability database and alerts the user of any known vulnerabilities. It works on Linux. Functionality on Windows and MacOS is under development
 
 ## Features
