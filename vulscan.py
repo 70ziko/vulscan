@@ -11,7 +11,7 @@ parser.add_argument('-d','--csv', type=str , help='!In development! Przeszukaj l
 parser.add_argument('--NVD', help='Przeszukaj stronę National Vulnerability Database od NIST', action='store_true')
 parser.add_argument('--vuldb', help='!In development! Skorzystaj z VULDB API, aby znaleźć podatności', action='store_true')
 parser.add_argument('--list', help='Po prostu wylistuj zainstalowane oprgoramowanie', action='store_true')
-
+parser.add_argument('--manager', help='!In development! Specify your package manager', action='store_true')
 
 
 args=parser.parse_args()

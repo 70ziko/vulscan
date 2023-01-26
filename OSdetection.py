@@ -17,7 +17,8 @@ def get_installed_software():
         else:
             command = 'apt list --installed' 
     else:
-        return "This script does not support your operating system."
+        return "This script does not support your operating system. \
+                \nUse the --manager flag to specify your software listing command."
 
     output = subprocess.check_output(command, shell=True, universal_newlines=True)
     return output
