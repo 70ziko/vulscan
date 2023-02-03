@@ -26,7 +26,7 @@ def get_installed_software():   # Funkcja zwracająca zainstalowane paczki oraz 
 
     return installed_software
 
-def search_NVD(installed_software, v=False): # Funkcja porównująca zainstalowane oprogramowanie ze stroną NVD
+def scrap_NVD(installed_software, v=False): # Funkcja porównująca zainstalowane oprogramowanie ze stroną NVD
     packages = [sublist[0] for sublist in installed_software]
     versions = [sublist[1] for sublist in installed_software]
 
@@ -97,6 +97,33 @@ def vuldb_search(installed_software):
                 print(f'    {vuln}')
     else:
         print('No vulnerabilities found.')
+
+def NVD_search_api(installed_software, v=False):
+    # api key zaciągnięty z zmiennej środowiskowej
+    api_key = os.environ.get('NVD_API_KEY')
+    if not api_key:
+        raise ValueError("API key not found in environment variables")
+
+    vulnerabilities = {}
+    for software in installed_software:
+        name = software[0]
+        version = software[1]
+        headers = {'api-key': api_key}
+        url = f'https://services.nvd.nist.gov/rest/json/cves/2.0?cpeName={name}'
+        response = json.loads(requests.post(url, headers=headers).text)
+        # response= requests.post(url, headers=headers).text
+        
+        vulnerabilities[name] = response['vulnerabilities']
+        print(response)
+
+    # Wypisz wymaluj
+        if vulnerabilities:
+            print(f"{Fore.CYAN}Podatności dla programu {Fore.LIGHTMAGENTA_EX}{name}{Fore.BLUE}:{Style.RESET_ALL}")
+            for vulnerability in vulnerabilities:
+                print(f"{Fore.LIGHTRED_EX}{vulnerability['cve']}{Style.RESET_ALL}")
+                if v: print(vulnerability['summary'])
+        else:
+            print("Nie znaleziono podatności dla programu " + name)
 
 def csv_search(installed_software):
     pass
