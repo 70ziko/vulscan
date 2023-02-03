@@ -6,6 +6,9 @@ response.html
 # CVE database
 allitems.csv
 
+# API key
+NVD-api-key
+
 # vscode
 .vscode/launch.json
 
